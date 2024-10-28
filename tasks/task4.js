@@ -1,12 +1,16 @@
-// Маємо масив об'єктів, де кожен об'єкт представляє автомобіль з інформацією про її бренд, модель і витрату палива. 
-// Завдання — перевірити, чи всі машини в масиві мають витрату палива менше 6 л/100 км. 
-// Якщо це так, то фільтруємо машини по бренду і повертаємо ті, що найбільш економні.
-
 function getMostFuelEfficientCars(cars, brand) {
-  // Ваш код
+
+  const allEfficient = cars.every(car => car.fuelConsumption < 6);
+
+
+  if (allEfficient) {
+    return cars
+      .filter(car => car.brand === brand) 
+      .sort((a, b) => a.fuelConsumption - b.fuelConsumption); 
+    return [];
+  }
 }
 
-// Приклад використання:
 const cars = [
   { brand: 'Toyota', model: 'Corolla', fuelConsumption: 5.2 },
   { brand: 'Honda', model: 'Civic', fuelConsumption: 5.9 },
@@ -19,13 +23,19 @@ const cars = [
   { brand: 'Dodge', model: 'Durango', fuelConsumption: 5.6 }, 
 ];
 
-console.log(getMostFuelEfficientCars(cars, 'Toyota')); 
+console.log(getMostFuelEfficientCars(cars, 'Toyota'));
+// Результат: [{ brand: 'Toyota', model: 'Corolla', fuelConsumption: 5.2 }, { brand: 'Toyota', model: 'Camry', fuelConsumption: 5.5 }]
 
-console.log(getMostFuelEfficientCars(cars, 'Honda')); 
+console.log(getMostFuelEfficientCars(cars, 'Honda'));
+// Результат: [{ brand: 'Honda', model: 'Accord', fuelConsumption: 5.8 }, { brand: 'Honda', model: 'Civic', fuelConsumption: 5.9 }]
 
-console.log(getMostFuelEfficientCars(cars, 'Audi'));  
+console.log(getMostFuelEfficientCars(cars, 'Audi'));
+// Результат: [{ brand: 'Audi', model: 'A3', fuelConsumption: 5.4 }, { brand: 'Audi', model: 'Q5', fuelConsumption: 5.7 }]
 
-console.log(getMostFuelEfficientCars(cars, 'Dodge'));  
+console.log(getMostFuelEfficientCars(cars, 'Dodge'));
+// Результат: [{ brand: 'Dodge', model: 'Durango', fuelConsumption: 5.6 }, { brand: 'Dodge', model: 'Charger', fuelConsumption: 5.8 }]
 
-console.log(getMostFuelEfficientCars(cars, 'Ford'));  
+console.log(getMostFuelEfficientCars(cars, 'Ford'));
+// Результат: [] (бо витрата палива для 'Ford Focus' більше 6 л/100 км)
+
 module.exports = getMostFuelEfficientCars;
